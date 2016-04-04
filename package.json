@@ -1,0 +1,19 @@
+{
+  "name": "glisy",
+  "version": "0.0.1",
+  "repo": "glisy/math",
+  "description": "Math functions for Glisy",
+  "keywords": ["glisy", "math", "matrix", "vector"],
+  "src": [
+    "include/vector.h",
+    "include/matrix.h",
+    "include/euler.h",
+    "include/vec2.h",
+    "include/vec3.h",
+    "include/vec4.h",
+    "include/quat.h",
+    "include/mat2.h",
+    "include/mat3.h",
+    "include/mat4.h"
+  ]
+}
