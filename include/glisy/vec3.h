@@ -214,11 +214,39 @@ struct vec3 { float x; float y; float z; };
   (vec3(cosf(rad)*zs, sinf(rad)*zs, z*scale));   \
 })
 
+/**
+ * Returns the angle between two vec3 vectors.
+ */
+
+#define vec3_angle(a, b) ({      \
+  vec3 x = vec3_normalize((a));  \
+  vec3 y = vec3_normalize((b));  \
+  float angle = 0;               \
+  float cosine = vec3_dot(x, y); \
+  if (cosine > 1.0) cosine = 0;  \
+  else cosine = acosf(cosine);   \
+  (cosine);                      \
+})
+
+/**
+ * Applies a mat4 to a vec3.
+ */
+
+#define vec3_transform_mat3(vec, mat) ({     \
+  vec3 out;                                  \
+  vec3 v = (vec3) vec;                       \
+  mat3 a = (mat3) (mat);                     \
+  float x = v.x, y = v.y, z = v.z;           \
+  out.x = x * a.m11 + y * a.m21 + z * a.m31; \
+  out.y = x * a.m12 + y * a.m22 + z * a.m32; \
+  out.z = x * a.m13 + y * a.m23 + z * a.m33; \
+  (out);                                     \
+})
+
   // @TODO(werle) - hermite
   // @TODO(werle) - bezier
   // @TODO(werle) - transform
   // @TODO(werle) - transformQuat
-  // @TODO(werle) - angle
 
 /**
  */

@@ -26,29 +26,23 @@ struct mat4 {
                            0,0,1,0, \
                            0,0,0,1)
 
-#define mat4(m11, m12, m13, m14, \
-             m21, m22, m23, m24, \
-             m31, m32, m33, m34, \
-             m41, m42, m43, m44) ((mat4) {m11, m12, m13, m14, \
-                                          m21, m22, m23, m24, \
-                                          m31, m32, m33, m34, \
-                                          m41, m42, m43, m44})
+#define mat4(...) ((mat4) { __VA_ARGS__ })
 
 /**
  * Clones and returns mat4 a.
  */
 
-#define mat4_clone(a) ((mat4) {a.m11, a.m12, a.m13, a.m14, \
-                               a.m21, a.m22, a.m23, a.m24, \
-                               a.m31, a.m32, a.m33, a.m34, \
-                               a.m41, a.m42, a.m43, a.m44})
+#define mat4_clone(a) ((mat4) {(a).m11, (a).m12, (a).m13, (a).m14, \
+                               (a).m21, (a).m22, (a).m23, (a).m24, \
+                               (a).m31, (a).m32, (a).m33, (a).m34, \
+                               (a).m41, (a).m42, (a).m43, (a).m44})
 
 /**
  * Copies mat4 b into mat4 a.
  */
 
 #define mat4_copy(a, b) (mat4) ({                                                 \
-  mat4 *tmp = &a;                                                                 \
+  mat4 *tmp = &(a);                                                               \
   (tmp->m11 = b.m11), (tmp->m12 = b.m12), (tmp->m13 = b.m13), (tmp->m14 = b.m14); \
   (tmp->m21 = b.m21), (tmp->m22 = b.m22), (tmp->m23 = b.m23), (tmp->m24 = b.m24); \
   (tmp->m31 = b.m31), (tmp->m32 = b.m32), (tmp->m33 = b.m33), (tmp->m34 = b.m34); \
@@ -61,7 +55,7 @@ struct mat4 {
  */
 
 #define mat4_identity(a) (mat4) ({                                \
-  mat4 *tmp = &a;                                                 \
+  mat4 *tmp = &(a);                                               \
   (tmp->m11 = 1), (tmp->m12 = 0), (tmp->m13 = 0), (tmp->m14 = 0); \
   (tmp->m21 = 0), (tmp->m22 = 1), (tmp->m23 = 0), (tmp->m24 = 0); \
   (tmp->m31 = 0), (tmp->m32 = 0), (tmp->m33 = 1), (tmp->m34 = 0); \
@@ -74,10 +68,10 @@ struct mat4 {
  */
 
 #define mat4_transpose(a) (mat4) ({    \
-  a.m11, a.m21, a.m31, a.m41,          \
-  a.m12, a.m22, a.m32, a.m42,          \
-  a.m13, a.m23, a.m33, a.m43,          \
-  a.m14, a.m24, a.m34, a.m44           \
+  (a).m11, (a).m21, (a).m31, (a).m41,  \
+  (a).m12, (a).m22, (a).m32, (a).m42,  \
+  (a).m13, (a).m23, (a).m33, (a).m43,  \
+  (a).m14, (a).m24, (a).m34, (a).m44   \
 })
 
 /**
@@ -85,15 +79,12 @@ struct mat4 {
  */
 
 #define mat4_invert(a) (mat4) ({                                     \
-  mat4 b = mat4(0,0,0,0,                                             \
-                0,0,0,0,                                             \
-                0,0,0,0,                                             \
-                0,0,0,0);                                            \
+  mat4 b = mat4(0);                                                  \
                                                                      \
-  float a00 = a.m11, a01 = a.m12, a02 = a.m13, a03 = a.m14;          \
-  float a10 = a.m21, a11 = a.m22, a12 = a.m23, a13 = a.m24;          \
-  float a20 = a.m31, a21 = a.m32, a22 = a.m33, a23 = a.m34;          \
-  float a30 = a.m41, a31 = a.m42, a32 = a.m43, a33 = a.m44;          \
+  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
   float b00 = a00 * a11 - a01 * a10;                                 \
   float b01 = a00 * a12 - a02 * a10;                                 \
@@ -143,15 +134,12 @@ struct mat4 {
  */
 
 #define mat4_adjoint(a) (mat4) ({                                    \
-  mat4 b = mat4(0,0,0,0,                                             \
-                0,0,0,0,                                             \
-                0,0,0,0,                                             \
-                0,0,0,0);                                            \
+  mat4 b = mat4(0);                                                  \
                                                                      \
-  float a00 = a.m11, a01 = a.m12, a02 = a.m13, a03 = a.m14;          \
-  float a10 = a.m21, a11 = a.m22, a12 = a.m23, a13 = a.m24;          \
-  float a20 = a.m31, a21 = a.m32, a22 = a.m33, a23 = a.m34;          \
-  float a30 = a.m41, a31 = a.m42, a32 = a.m43, a33 = a.m44;          \
+  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
   b.m11 =   (a11 * (a22 * a33 - a23 * a32)                           \
            - a21 * (a12 * a33 - a13 * a32)                           \
@@ -225,10 +213,10 @@ struct mat4 {
  */
 
 #define mat4_determinant(a) (float) ({                               \
-  float a00 = a.m11, a01 = a.m12, a02 = a.m13, a03 = a.m14;          \
-  float a10 = a.m21, a11 = a.m22, a12 = a.m23, a13 = a.m24;          \
-  float a20 = a.m31, a21 = a.m32, a22 = a.m33, a23 = a.m34;          \
-  float a30 = a.m41, a31 = a.m42, a32 = a.m43, a33 = a.m44;          \
+  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
   float b00 = a00 * a11 - a01 * a10;                                 \
   float b01 = a00 * a12 - a02 * a10;                                 \
@@ -256,93 +244,93 @@ struct mat4 {
  * Add mat4 a and mat4 b.
  */
 
-#define mat4_add(a, b) ((mat4) {                                     \
-  a.m11 + b.m11, a.m12 + b.m12, a.m13 + b.m13, a.m14 + b.m14,        \
-  a.m21 + b.m21, b.m22 + b.m22, a.m23 + b.m23, a.m24 + b.m24,        \
-  a.m31 + b.m31, b.m32 + b.m32, a.m33 + b.m33, a.m34 + b.m34,        \
-  a.m41 + b.m41, b.m42 + b.m42, a.m43 + b.m43, a.m44 + b.m44         \
+#define mat4_add(a, b) ((mat4) {                                              \
+  (a).m11 + (b).m11, (a).m12 + (b).m12, (a).m13 + (b).m13, (a).m14 + (b).m14, \
+  (a).m21 + (b).m21, (b).m22 + (b).m22, (a).m23 + (b).m23, (a).m24 + (b).m24, \
+  (a).m31 + (b).m31, (b).m32 + (b).m32, (a).m33 + (b).m33, (a).m34 + (b).m34, \
+  (a).m41 + (b).m41, (b).m42 + (b).m42, (a).m43 + (b).m43, (a).m44 + (b).m44  \
 })
 
 /**
  * Subtract mat4 b from mat4 a.
  */
 
-#define mat4_subtract(a, b) ((mat4) {                                \
-  a.m11 - b.m11, a.m12 - b.m12, a.m13 - b.m13, a.m14 - b.m14,        \
-  a.m21 - b.m21, b.m22 - b.m22, a.m23 - b.m23, a.m24 - b.m24,        \
-  a.m31 - b.m31, b.m32 - b.m32, a.m33 - b.m33, a.m34 - b.m34,        \
-  a.m41 - b.m41, b.m42 - b.m42, a.m43 - b.m43, a.m44 - b.m44         \
+#define mat4_subtract(a, b) ((mat4) {                                         \
+  (a).m11 - (b).m11, (a).m12 - (b).m12, (a).m13 - (b).m13, (a).m14 - (b).m14, \
+  (a).m21 - (b).m21, (b).m22 - (b).m22, (a).m23 - (b).m23, (a).m24 - (b).m24, \
+  (a).m31 - (b).m31, (b).m32 - (b).m32, (a).m33 - (b).m33, (a).m34 - (b).m34, \
+  (a).m41 - (b).m41, (b).m42 - (b).m42, (a).m43 - (b).m43, (a).m44 - (b).m44  \
 })
 
 /**
  * Multiply mat4 a and mat4 b.
  */
 
-#define mat4_multiply(a, b) ((mat4) {                                \
-  (a.m11 * b.m11 + a.m21 * b.m12 + a.m31 * b.m13 + a.m41 * b.m14),   \
-  (a.m12 * b.m11 + a.m22 * b.m12 + a.m32 * b.m13 + a.m42 * b.m14),   \
-  (a.m13 * b.m11 + a.m23 * b.m12 + a.m33 * b.m13 + a.m43 * b.m14),   \
-  (a.m14 * b.m11 + a.m23 * b.m12 + a.m34 * b.m13 + a.m44 * b.m14),   \
-                                                                     \
-  (a.m11 * b.m21 + a.m21 * b.m22 + a.m31 * b.m23 + a.m41 * b.m24),   \
-  (a.m12 * b.m21 + a.m22 * b.m22 + a.m32 * b.m23 + a.m42 * b.m24),   \
-  (a.m13 * b.m21 + a.m23 * b.m22 + a.m33 * b.m23 + a.m43 * b.m24),   \
-  (a.m14 * b.m21 + a.m24 * b.m22 + a.m34 * b.m23 + a.m44 * b.m24),   \
-                                                                     \
-  (a.m11 * b.m31 + a.m21 * b.m32 + a.m31 * b.m33 + a.m41 * b.m34),   \
-  (a.m12 * b.m31 + a.m22 * b.m32 + a.m32 * b.m33 + a.m42 * b.m34),   \
-  (a.m13 * b.m31 + a.m23 * b.m32 + a.m33 * b.m33 + a.m43 * b.m34),   \
-  (a.m14 * b.m31 + a.m24 * b.m32 + a.m34 * b.m33 + a.m44 * b.m34),   \
-                                                                     \
-  (a.m11 * b.m41 + a.m21 * b.m42 + a.m31 * b.m43 + a.m41 * b.m44),   \
-  (a.m12 * b.m41 + a.m22 * b.m42 + a.m32 * b.m43 + a.m42 * b.m44),   \
-  (a.m13 * b.m41 + a.m23 * b.m42 + a.m33 * b.m43 + a.m43 * b.m44),   \
-  (a.m14 * b.m41 + a.m24 * b.m42 + a.m34 * b.m43 + a.m44 * b.m44),   \
+#define mat4_multiply(a, b) ((mat4) {                                                \
+  ((a).m11 * (b).m11 + (a).m21 * (b).m12 + (a).m31 * (b).m13 + (a).m41 * (b).m14),   \
+  ((a).m12 * (b).m11 + (a).m22 * (b).m12 + (a).m32 * (b).m13 + (a).m42 * (b).m14),   \
+  ((a).m13 * (b).m11 + (a).m23 * (b).m12 + (a).m33 * (b).m13 + (a).m43 * (b).m14),   \
+  ((a).m14 * (b).m11 + (a).m23 * (b).m12 + (a).m34 * (b).m13 + (a).m44 * (b).m14),   \
+                                                                                     \
+  ((a).m11 * (b).m21 + (a).m21 * (b).m22 + (a).m31 * (b).m23 + (a).m41 * (b).m24),   \
+  ((a).m12 * (b).m21 + (a).m22 * (b).m22 + (a).m32 * (b).m23 + (a).m42 * (b).m24),   \
+  ((a).m13 * (b).m21 + (a).m23 * (b).m22 + (a).m33 * (b).m23 + (a).m43 * (b).m24),   \
+  ((a).m14 * (b).m21 + (a).m24 * (b).m22 + (a).m34 * (b).m23 + (a).m44 * (b).m24),   \
+                                                                                     \
+  ((a).m11 * (b).m31 + (a).m21 * (b).m32 + (a).m31 * (b).m33 + (a).m41 * (b).m34),   \
+  ((a).m12 * (b).m31 + (a).m22 * (b).m32 + (a).m32 * (b).m33 + (a).m42 * (b).m34),   \
+  ((a).m13 * (b).m31 + (a).m23 * (b).m32 + (a).m33 * (b).m33 + (a).m43 * (b).m34),   \
+  ((a).m14 * (b).m31 + (a).m24 * (b).m32 + (a).m34 * (b).m33 + (a).m44 * (b).m34),   \
+                                                                                     \
+  ((a).m11 * (b).m41 + (a).m21 * (b).m42 + (a).m31 * (b).m43 + (a).m41 * (b).m44),   \
+  ((a).m12 * (b).m41 + (a).m22 * (b).m42 + (a).m32 * (b).m43 + (a).m42 * (b).m44),   \
+  ((a).m13 * (b).m41 + (a).m23 * (b).m42 + (a).m33 * (b).m43 + (a).m43 * (b).m44),   \
+  ((a).m14 * (b).m41 + (a).m24 * (b).m42 + (a).m34 * (b).m43 + (a).m44 * (b).m44),   \
 })
 
 /**
  * Rotates mat4 a by angle rad.
  */
 
-#define mat4_rotate(a, rad, vec) (mat4) ({                           \
-  float x = vec.x, y = vec.y, z = vec.z;                             \
-  float d = sqrt(x*x + y*y + z*z);                                   \
-  float c = cosf(rad), s = sinf(rad), t = 1 - c;                     \
-                                                                     \
-  x /= d; y /= d; z /= d;                                            \
-                                                                     \
-  a.m11 = x * x * t + c;                                             \
-  a.m12 = x * y * t - z * s;                                         \
-  a.m13 = x * z * t + y * s;                                         \
-  a.m14 = 0;                                                         \
-                                                                     \
-  a.m21 = y * x * t + z * s;                                         \
-  a.m22 = y * y * t + c;                                             \
-  a.m23 = y * z * t - x * s;                                         \
-  a.m24 = 0;                                                         \
-                                                                     \
-  a.m31 = z * x * t - y * s;                                         \
-  a.m32 = z * y * t + x * s;                                         \
-  a.m33 = z * z * t + c;                                             \
-  a.m34 = 0;                                                         \
-                                                                     \
-  a.m41 = 0;                                                         \
-  a.m42 = 0;                                                         \
-  a.m43 = 0;                                                         \
-  a.m44 = 1;                                                         \
-                                                                     \
-  (a);                                                               \
+#define mat4_rotate(a, rad, vec) (mat4) ({        \
+  float x = (vec).x, y = (vec).y, z = (vec).z;    \
+  float d = sqrt(x*x + y*y + z*z);                \
+  float c = cosf(rad), s = sinf(rad), t = 1 - c;  \
+                                                  \
+  x /= d; y /= d; z /= d;                         \
+                                                  \
+  (a).m11 = x * x * t + c;                        \
+  (a).m12 = x * y * t - z * s;                    \
+  (a).m13 = x * z * t + y * s;                    \
+  (a).m14 = 0;                                    \
+                                                  \
+  (a).m21 = y * x * t + z * s;                    \
+  (a).m22 = y * y * t + c;                        \
+  (a).m23 = y * z * t - x * s;                    \
+  (a).m24 = 0;                                    \
+                                                  \
+  (a).m31 = z * x * t - y * s;                    \
+  (a).m32 = z * y * t + x * s;                    \
+  (a).m33 = z * z * t + c;                        \
+  (a).m34 = 0;                                    \
+                                                  \
+  (a).m41 = 0;                                    \
+  (a).m42 = 0;                                    \
+  (a).m43 = 0;                                    \
+  (a).m44 = 1;                                    \
+                                                  \
+  (a);                                            \
 })
 
 /**
  * Scales mat4 a by vec3 b.
  */
 
-#define mat4_scale(a, b) ((mat4) {                                   \
-  (a.m11 * b.x), (a.m12 * b.x), (a.m13 * b.x), (a.m14 * b.x),        \
-  (a.m21 * b.y), (a.m22 * b.y), (a.m23 * b.y), (a.m24 * b.y),        \
-  (a.m31 * b.z), (a.m32 * b.z), (a.m33 * b.z), (a.m34 * b.z),        \
-  a.m41, a.m42, a.m43, a.m44                                         \
+#define mat4_scale(a, b) ((mat4) {                                             \
+  ((a).m11 * (b).x), ((a).m12 * (b).x), ((a).m13 * (b).x), ((a).m14 * (b).x),  \
+  ((a).m21 * (b).y), ((a).m22 * (b).y), ((a).m23 * (b).y), ((a).m24 * (b).y),  \
+  ((a).m31 * (b).z), ((a).m32 * (b).z), ((a).m33 * (b).z), ((a).m34 * (b).z),  \
+  (a).m41, (a).m42, (a).m43, (a).m44                                           \
 })
 
 /**
@@ -350,13 +338,13 @@ struct mat4 {
  */
 
 #define mat4_translate(a, b) ((mat4) {                               \
-  a.m11, a.m12, a.m13, a.m14,                                        \
-  a.m21, a.m22, a.m23, a.m24,                                        \
-  a.m31, a.m32, a.m33, a.m34,                                        \
-  (b.x * a.m11 + b.y * a.m21 + b.z * a.m31 + a.m41),                 \
-  (b.x * a.m12 + b.y * a.m22 + b.z * a.m32 + a.m42),                 \
-  (b.x * a.m13 + b.y * a.m23 + b.z * a.m33 + a.m43),                 \
-  (b.x * a.m14 + b.y * a.m24 + b.z * a.m34 + a.m44)                  \
+  (a).m11, (a).m12, (a).m13, (a).m14,                                \
+  (a).m21, (a).m22, (a).m23, (a).m24,                                \
+  (a).m31, (a).m32, (a).m33, (a).m34,                                \
+  ((b).x * (a).m11 + (b).y * (a).m21 + (b).z * (a).m31 + (a).m41),   \
+  ((b).x * (a).m12 + (b).y * (a).m22 + (b).z * (a).m32 + (a).m42),   \
+  ((b).x * (a).m13 + (b).y * (a).m23 + (b).z * (a).m33 + (a).m43),   \
+  ((b).x * (a).m14 + (b).y * (a).m24 + (b).z * (a).m34 + (a).m44)    \
 })
 
 /**
@@ -538,23 +526,23 @@ struct mat4 {
  * Calculates Frobenius norm mat4 a.
  */
 
-#define mat4_frob(a) (float) sqrt(                                   \
-  powf(a.m11, 2.0) +                                                 \
-  powf(a.m12, 2.0) +                                                 \
-  powf(a.m13, 2.0) +                                                 \
-  powf(a.m14, 2.0) +                                                 \
-  powf(a.m21, 2.0) +                                                 \
-  powf(a.m22, 2.0) +                                                 \
-  powf(a.m23, 2.0) +                                                 \
-  powf(a.m24, 2.0) +                                                 \
-  powf(a.m31, 2.0) +                                                 \
-  powf(a.m32, 2.0) +                                                 \
-  powf(a.m33, 2.0) +                                                 \
-  powf(a.m34, 2.0) +                                                 \
-  powf(a.m41, 2.0) +                                                 \
-  powf(a.m42, 2.0) +                                                 \
-  powf(a.m43, 2.0) +                                                 \
-  powf(a.m44, 2.0)                                                   \
+#define mat4_frob(a) (float) sqrt( \
+  powf((a).m11, 2.0) +             \
+  powf((a).m12, 2.0) +             \
+  powf((a).m13, 2.0) +             \
+  powf((a).m14, 2.0) +             \
+  powf((a).m21, 2.0) +             \
+  powf((a).m22, 2.0) +             \
+  powf((a).m23, 2.0) +             \
+  powf((a).m24, 2.0) +             \
+  powf((a).m31, 2.0) +             \
+  powf((a).m32, 2.0) +             \
+  powf((a).m33, 2.0) +             \
+  powf((a).m34, 2.0) +             \
+  powf((a).m41, 2.0) +             \
+  powf((a).m42, 2.0) +             \
+  powf((a).m43, 2.0) +             \
+  powf((a).m44, 2.0)               \
 )
 
 /**
@@ -563,7 +551,7 @@ struct mat4 {
 
 #define mat4_string(a) (const char *) ({                             \
   char str[BUFSIZ];                                                  \
-  mat4 b = mat4_clone(a);                                            \
+  mat4 b = mat4_clone((a));                                          \
   memset(str, 0, BUFSIZ);                                            \
   sprintf(str, "mat4(%f, %f, %f, %f,\n"                              \
                "     %f, %f, %f, %f,\n"                              \
