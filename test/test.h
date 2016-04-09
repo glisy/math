@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <GLFW/glfw3.h>
+#include <glisy/math.h>
 
 #define EPISILON 0.0001
 #define fcmp(a, b) fabs(a - b) < EPISILON
