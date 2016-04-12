@@ -387,28 +387,28 @@ struct mat4 {
  */
 
 #define mat4_perspective(fov, aspect, near, far) (mat4) ({           \
-  float f = tanf(glisy_radians(fov) * M_PI * 0.5 - 0.5);             \
-  float nf = near - far;                                             \
+  float f = 1.0 / tanf(fov / 2);                                     \
+  int nf = 1 / (near - far);                                         \
   mat4 a;                                                            \
                                                                      \
-  a.m11 = 1.0f / (f * aspect);                                       \
+  a.m11 = f / (aspect);                                              \
   a.m12 = 0;                                                         \
   a.m13 = 0;                                                         \
   a.m14 = 0;                                                         \
                                                                      \
   a.m21 = 0;                                                         \
-  a.m22 = 1.0f / f;                                                  \
+  a.m22 = f;                                                         \
   a.m23 = 0;                                                         \
   a.m24 = 0;                                                         \
                                                                      \
   a.m31 = 0;                                                         \
   a.m32 = 0;                                                         \
-  a.m33 = (-near - far) / nf;                                        \
-  a.m34 = 2.0f * far * near / nf;                                    \
+  a.m33 = (near + far) * nf;                                         \
+  a.m34 = -1;                                                        \
                                                                      \
   a.m41 = 0;                                                         \
   a.m42 = 0;                                                         \
-  a.m43 = 1;                                                         \
+  a.m43 = (2 * far * near) * nf;                                     \
   a.m44 = 0;                                                         \
                                                                      \
   (a);                                                               \
