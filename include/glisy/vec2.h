@@ -58,7 +58,7 @@ struct vec2 { float x; float y; };
  */
 
 #define vec2_copy(a, b) ({             \
-  vec2 *tmp = &(a);                    \
+  vec2 *tmp = (vec2 *) &(a);           \
   (tmp->x = (b).x);                    \
   (tmp->y = (b).y);                    \
   (*tmp);                              \
@@ -69,7 +69,7 @@ struct vec2 { float x; float y; };
  */
 
 #define vec2_set(v, a, b) ({    \
-  vec2 *tmp = &(v);             \
+  vec2 *tmp = (vec2 *) &(v);    \
   tmp->x = ((float) a);         \
   tmp->y = ((float) b);         \
   (*tmp);                       \

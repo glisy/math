@@ -206,7 +206,7 @@ struct quat { float x; float y; float z; float w; };
 
 #define quat_from_mat3(m) (quat) ({                   \
   quat q = quat(0);                                   \
-  mat3 *ptr = &(m);                                   \
+  mat3 *ptr = (mat3 *) &(m);                          \
   float trace = (m).m11 + (m).m22 + (m).m33;          \
   float i, j, k;                                      \
   float root;                                         \

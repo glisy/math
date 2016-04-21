@@ -42,7 +42,7 @@ struct mat4 {
  */
 
 #define mat4_copy(a, b) (mat4) ({                                                 \
-  mat4 *tmp = &(a);                                                               \
+  mat4 *tmp = (mat4 *) &(a);                                                      \
   (tmp->m11 = b.m11), (tmp->m12 = b.m12), (tmp->m13 = b.m13), (tmp->m14 = b.m14); \
   (tmp->m21 = b.m21), (tmp->m22 = b.m22), (tmp->m23 = b.m23), (tmp->m24 = b.m24); \
   (tmp->m31 = b.m31), (tmp->m32 = b.m32), (tmp->m33 = b.m33), (tmp->m34 = b.m34); \
@@ -55,7 +55,7 @@ struct mat4 {
  */
 
 #define mat4_identity(a) (mat4) ({                                \
-  mat4 *tmp = &(a);                                               \
+  mat4 *tmp = (mat4 *) &(a);                                      \
   (tmp->m11 = 1), (tmp->m12 = 0), (tmp->m13 = 0), (tmp->m14 = 0); \
   (tmp->m21 = 0), (tmp->m22 = 1), (tmp->m23 = 0), (tmp->m24 = 0); \
   (tmp->m31 = 0), (tmp->m32 = 0), (tmp->m33 = 1), (tmp->m34 = 0); \

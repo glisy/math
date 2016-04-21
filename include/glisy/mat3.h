@@ -39,7 +39,7 @@ struct mat3 {
  */
 
 #define mat3_copy(a, b) (mat3) ({                               \
-  mat3 *tmp = &(a);                                             \
+  mat3 *tmp = (mat3 *) &(a);                                    \
   (tmp->m11 = b.m11), (tmp->m12 = b.m12), (tmp->m13 = b.m13);   \
   (tmp->m21 = b.m21), (tmp->m22 = b.m22), (tmp->m23 = b.m23);   \
   (tmp->m31 = b.m31), (tmp->m32 = b.m32), (tmp->m33 = b.m33);   \
@@ -51,7 +51,7 @@ struct mat3 {
  */
 
 #define mat3_identity(a) (mat3) ({                    \
-  mat3 *tmp = &(a);                                   \
+  mat3 *tmp = (mat3 *) &(a);                          \
   (tmp->m11 = 1), (tmp->m12 = 0), (tmp->m13 = 0);     \
   (tmp->m21 = 0), (tmp->m22 = 1), (tmp->m23 = 0);     \
   (tmp->m31 = 0), (tmp->m32 = 0), (tmp->m33 = 1);     \

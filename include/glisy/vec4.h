@@ -27,7 +27,7 @@ struct vec4 { float x; float y; float z; float w; };
  * Clones and returns vec4.
  */
 
-#define vec4_clone(vec) ((vec4) {(ve)c.x, (vec).y, (vec).z, (vec).w})
+#define vec4_clone(vec) ((vec4) {(vec).x, (vec).y, (vec).z, (vec).w})
 
 /**
  * Subtracts vec4 b from vec4 a.
@@ -64,7 +64,7 @@ struct vec4 { float x; float y; float z; float w; };
  */
 
 #define vec4_copy(a, b) (vec4) ({ \
-  vec4 *tmp = &(a);               \
+  vec4 *tmp = (vec4 *) &(a);      \
   (tmp->x = b.x);                 \
   (tmp->y = b.y);                 \
   (tmp->z = b.z);                 \

@@ -61,7 +61,7 @@ struct vec3 { float x; float y; float z; };
  */
 
 #define vec3_copy(a, b) (vec3) ({ \
-  vec3 *tmp = &(a);               \
+  vec3 *tmp = (vec3 *) &(a);      \
   (tmp->x = b.x);                 \
   (tmp->y = b.y);                 \
   (tmp->z = b.z);                 \
@@ -73,7 +73,7 @@ struct vec3 { float x; float y; float z; };
  */
 
 #define vec3_set(v, a, b, c) (vec3) ({ \
-  vec3 *tmp = &(v);                    \
+  vec3 *tmp = (vec3 *) &(v);           \
   tmp->x = ((float) a);                \
   tmp->y = ((float) b);                \
   tmp->z = ((float) c);                \
