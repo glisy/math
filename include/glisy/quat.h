@@ -113,7 +113,6 @@ struct quat { float x; float y; float z; float w; };
 
 #define quat_rotateY(q, rad) ({                         \
   float r = rad * 0.5;                                  \
-  float r = rad * 0.5;                                  \
   float ax = (q).x, ay = (q).y, az = (q).z, aw = (q).w; \
   float bx = sinf(r), bw = cosf(r);                     \
   (q).x = ax * bw - az * bx;                            \
