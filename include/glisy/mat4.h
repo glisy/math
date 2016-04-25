@@ -546,6 +546,52 @@ struct mat4 {
 )
 
 /**
+ * Calculates a mat4 from a quat
+ */
+
+#define mat4_from_quat(q) ({ \
+  mat4 mat = mat4(0);        \
+  float x = (q).x;           \
+  float y = (q).y;           \
+  float z = (q).z;           \
+  float w = (q).w;           \
+  float x2 = x + x;          \
+  float y2 = y + y;          \
+  float z2 = z + z;          \
+  float xx = x * x2;         \
+  float yx = y * x2;         \
+  float yy = y * y2;         \
+  float zx = z * x2;         \
+  float zy = z * y2;         \
+  float zz = z * z2;         \
+  float wx = w * x2;         \
+  float wy = w * y2;         \
+  float wz = w * z2;         \
+                             \
+  mat.m11 = 1 - yy - zz;     \
+  mat.m12 = yx + wz;         \
+  mat.m13 = zx - wy;         \
+  mat.m14 = 0;               \
+                             \
+  mat.m21 = yx - wz;         \
+  mat.m22 = 1 - xx - zz;     \
+  mat.m23 = zy + wx;         \
+  mat.m24 = 0;               \
+                             \
+  mat.m31 = zx + wy;         \
+  mat.m32 = zy - wx;         \
+  mat.m33 = 1 - xx - yy;     \
+  mat.m34 = 0;               \
+                             \
+  mat.m41 = 0;               \
+  mat.m42 = 0;               \
+  mat.m43 = 0;               \
+  mat.m44 = 1;               \
+                             \
+  (mat);                     \
+})
+
+/**
  * Returns a string representation of mat4 a.
  */
 

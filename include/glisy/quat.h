@@ -65,13 +65,13 @@ struct quat { float x; float y; float z; float w; };
 
 /**
  * Sets a quat from the given angle and rotation axis,
- * 178  * then returns it.
+ * then returns it.
  */
 
 #define quat_set_axis_angle(q, axis, rad) (quat) ({ \
-  rad = rad * 0.5;                                  \
-  float s = sinf(rad);                              \
-  float c = cosf(rad);                              \
+  float r = rad * 0.5;                              \
+  float s = sinf(r);                                \
+  float c = cosf(r);                                \
   (q).x = s * (axis).x;                             \
   (q).y = s * (axis).y;                             \
   (q).z = s * (axis).z;                             \
@@ -83,7 +83,7 @@ struct quat { float x; float y; float z; float w; };
  * Multiply two quats
  */
 
-#define quat_multiply(a, b) (quat) ({                   \
+#define quat_multiply(a, b) ({                          \
   float ax = (a).x, ay = (a).y, az = (a).z, aw = (a).w; \
   float bx = (b).x, by = (b).y, bz = (b).z, bw = (b).w; \
   (quat(ax * bw + aw * bx + ay * bz - az * by,          \
@@ -96,42 +96,46 @@ struct quat { float x; float y; float z; float w; };
  * Rotates a quaternion by the given angle around the X axis
  */
 
-#define quat_rotateX(a, rad) (quat) ({                  \
-  rad *= 0.5;                                           \
-  float ax = (a).x, ay = (a).y, az = (a).z, aw = (a).w; \
-  float bx = sinf(rad), bw = cosf(rad);                 \
-  (a).x = ax * bw + aw * bx;                            \
-  (a).y = ay * bw + az * bx;                            \
-  (a).z = az * bw - ay * bx;                            \
-  (a).w = aw * bw - ax * bx;                            \
+#define quat_rotateX(q, rad) ({                         \
+  float r = rad * 0.5;                                  \
+  float ax = (q).x, ay = (q).y, az = (q).z, aw = (q).w; \
+  float bx = sinf(r), bw = cosf(r);                     \
+  (q).x = ax * bw + aw * bx;                            \
+  (q).y = ay * bw + az * bx;                            \
+  (q).z = az * bw - ay * bx;                            \
+  (q).w = aw * bw - ax * bx;                            \
+  (q);                                                  \
 })
 
 /**
  * Rotates a quaternion by the given angle around the Y axis
  */
 
-#define quat_rotateY(a, rad) (quat) ({                  \
-  rad *= 0.5;                                           \
-  float ax = (a).x, ay = (a).y, az = (a).z, aw = (a).w; \
-  float bx = sinf(rad), bw = cosf(rad);                 \
-  (a).x = ax * bw - az * by;                            \
-  (a).y = ay * bw + aw * by;                            \
-  (a).z = az * bw + ax * by;                            \
-  (a).w = aw * bw - ay * by;                            \
+#define quat_rotateY(q, rad) ({                         \
+  float r = rad * 0.5;                                  \
+  float r = rad * 0.5;                                  \
+  float ax = (q).x, ay = (q).y, az = (q).z, aw = (q).w; \
+  float bx = sinf(r), bw = cosf(r);                     \
+  (q).x = ax * bw - az * bx;                            \
+  (q).y = ay * bw + aw * bx;                            \
+  (q).z = az * bw + ax * bx;                            \
+  (q).w = aw * bw - ay * bx;                            \
+  (q);                                                  \
 })
 
 /**
  * Rotates a quaternion by the given angle around the Z axis
  */
 
-#define quat_rotateZ(a, rad) (quat) ({                  \
-  rad *= 0.5;                                           \
-  float ax = (a).x, ay = (a).y, az = (a).z, aw = (a).w; \
-  float bx = sinf(rad), bw = cosf(rad);                 \
-  (a).x = ax * bw + ay * bz;                            \
-  (a).y = ay * bw - ax * bz;                            \
-  (a).z = az * bw + aw * bz;                            \
-  (a).w = aw * bw - az * bz;                            \
+#define quat_rotateZ(q, rad) ({                         \
+  float r = rad * 0.5;                                  \
+  float ax = (q).x, ay = (q).y, az = (q).z, aw = (q).w; \
+  float bx = sinf(r), bw = cosf(r);                     \
+  (q).x = ax * bw + ay * bx;                            \
+  (q).y = ay * bw - ax * bx;                            \
+  (q).z = az * bw + aw * bx;                            \
+  (q).w = aw * bw - az * bx;                            \
+  (q);                                                  \
 })
 
 /**
