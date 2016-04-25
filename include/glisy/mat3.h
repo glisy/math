@@ -24,13 +24,13 @@ struct mat3 {
                            0,1,0, \
                            0,0,1)
 
-#define mat3(...) ((mat3) { __VA_ARGS__ })
+#define mat3(...) ((mat3){ __VA_ARGS__ })
 
 /**
  * Clones and returns mat3 a.
  */
 
-#define mat3_clone(a) ((mat3) {(a).m11, (a).m12, (a).m13, \
+#define mat3_clone(a) ((mat3){(a).m11, (a).m12, (a).m13,  \
                                (a).m21, (a).m22, (a).m23, \
                                (a).m31, (a).m32, (a).m33})
 
@@ -38,7 +38,7 @@ struct mat3 {
  * Copies mat3 b into mat3 a.
  */
 
-#define mat3_copy(a, b) (mat3) ({                               \
+#define mat3_copy(a, b)  ({                                     \
   mat3 *tmp = (mat3 *) &(a);                                    \
   (tmp->m11 = b.m11), (tmp->m12 = b.m12), (tmp->m13 = b.m13);   \
   (tmp->m21 = b.m21), (tmp->m22 = b.m22), (tmp->m23 = b.m23);   \
@@ -50,7 +50,7 @@ struct mat3 {
  * Sets an identity for mat3 a.
  */
 
-#define mat3_identity(a) (mat3) ({                    \
+#define mat3_identity(a)  ({                          \
   mat3 *tmp = (mat3 *) &(a);                          \
   (tmp->m11 = 1), (tmp->m12 = 0), (tmp->m13 = 0);     \
   (tmp->m21 = 0), (tmp->m22 = 1), (tmp->m23 = 0);     \
@@ -62,7 +62,7 @@ struct mat3 {
  * Transposes mat3 a.
  */
 
-#define mat3_transpose(a) (mat3) ({ \
+#define mat3_transpose(a)  ({       \
   mat3((a).m11, (a).m21, (a).m31,   \
        (a).m12, (a).m22, (a).m32,   \
        (a).m13, (a).m23, (a).m33);  \
@@ -72,7 +72,7 @@ struct mat3 {
  * Calculates and returns inverse for mat3 a.
  */
 
-#define mat3_invert(a) (mat3) ({                       \
+#define mat3_invert(a)  ({                             \
   mat3 b = mat3(0);                                    \
   float a11 = (a).m11, a12 = (a).m12, a13 = (a).m13;   \
   float a21 = (a).m21, a22 = (a).m22, a23 = (a).m23;   \
@@ -100,7 +100,7 @@ struct mat3 {
  * Calculates adjugate of mat3 a.
  */
 
-#define mat3_adjoint(a) (mat3) ({                      \
+#define mat3_adjoint(a)  ({                            \
   mat3 b = mat3(0);                                    \
   float a11 = (a).m11, a12 = (a).m12, a13 = (a).m13;   \
   float a21 = (a).m21, a22 = (a).m22, a23 = (a).m23;   \
@@ -169,7 +169,7 @@ struct mat3 {
  * Rotates mat3 a by angle rad.
  */
 
-#define mat3_rotate(a, rad) ((mat3) ({      \
+#define mat3_rotate(a, rad) ( ({            \
   float c = cosf(rad);                      \
   float s = sinf(rad);                      \
   mat3((c * (a).m11 + s * (a).m21),         \
@@ -228,15 +228,15 @@ struct mat3 {
  * Creates mat3 from translation vec2 a.
  */
 
-#define mat3_from_translation(a) ((mat3) {1.0, 0.0, 0.0,   \
-                                          0.0, 1.0, 0.0,   \
+#define mat3_from_translation(a) ((mat3) {1.0, 0.0, 0.0,     \
+                                          0.0, 1.0, 0.0,     \
                                           (a).x, (a).y, 1.0})
 
 /**
  * Creates mat3 from quat a.
  */
 
-#define mat3_from_quat(a) ((mat3) ({                \
+#define mat3_from_quat(a) ({                        \
   float x = (a).x, y = (a).y, z = (a).z, w = (a).w; \
   float x2 = x + x,                                 \
         y2 = y + y,                                 \
@@ -259,7 +259,7 @@ struct mat3 {
        (zx + wy),                                   \
        (zy - wx),                                   \
        (1 - xx - yy));                              \
-}))
+})
 
 /**
  * Calculates Frobenius norm mat3 a.

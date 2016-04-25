@@ -26,13 +26,13 @@ struct mat4 {
                            0,0,1,0, \
                            0,0,0,1)
 
-#define mat4(...) ((mat4) { __VA_ARGS__ })
+#define mat4(...) ((mat4){ __VA_ARGS__ })
 
 /**
  * Clones and returns mat4 a.
  */
 
-#define mat4_clone(a) ((mat4) {(a).m11, (a).m12, (a).m13, (a).m14, \
+#define mat4_clone(a) ((mat4){(a).m11, (a).m12, (a).m13, (a).m14,  \
                                (a).m21, (a).m22, (a).m23, (a).m24, \
                                (a).m31, (a).m32, (a).m33, (a).m34, \
                                (a).m41, (a).m42, (a).m43, (a).m44})
@@ -41,7 +41,7 @@ struct mat4 {
  * Copies mat4 b into mat4 a.
  */
 
-#define mat4_copy(a, b) (mat4) ({                                                 \
+#define mat4_copy(a, b)  ({                                                       \
   mat4 *tmp = (mat4 *) &(a);                                                      \
   (tmp->m11 = b.m11), (tmp->m12 = b.m12), (tmp->m13 = b.m13), (tmp->m14 = b.m14); \
   (tmp->m21 = b.m21), (tmp->m22 = b.m22), (tmp->m23 = b.m23), (tmp->m24 = b.m24); \
@@ -54,7 +54,7 @@ struct mat4 {
  * Sets an identity for mat4 a.
  */
 
-#define mat4_identity(a) (mat4) ({                                \
+#define mat4_identity(a)  ({                                      \
   mat4 *tmp = (mat4 *) &(a);                                      \
   (tmp->m11 = 1), (tmp->m12 = 0), (tmp->m13 = 0), (tmp->m14 = 0); \
   (tmp->m21 = 0), (tmp->m22 = 1), (tmp->m23 = 0), (tmp->m24 = 0); \
@@ -67,7 +67,7 @@ struct mat4 {
  * Transposes mat4 a.
  */
 
-#define mat4_transpose(a) (mat4) ({    \
+#define mat4_transpose(a) ((mat4){     \
   (a).m11, (a).m21, (a).m31, (a).m41,  \
   (a).m12, (a).m22, (a).m32, (a).m42,  \
   (a).m13, (a).m23, (a).m33, (a).m43,  \
@@ -78,7 +78,7 @@ struct mat4 {
  * Calculates and returns inverse for mat4 a.
  */
 
-#define mat4_invert(a) (mat4) ({                                     \
+#define mat4_invert(a)  ({                                           \
   mat4 b = mat4(0);                                                  \
                                                                      \
   float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
@@ -133,7 +133,7 @@ struct mat4 {
  * Calculates adjugate of mat4 a.
  */
 
-#define mat4_adjoint(a) (mat4) ({                                    \
+#define mat4_adjoint(a)  ({                                          \
   mat4 b = mat4(0);                                                  \
                                                                      \
   float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
@@ -244,7 +244,7 @@ struct mat4 {
  * Add mat4 a and mat4 b.
  */
 
-#define mat4_add(a, b) ((mat4) {                                              \
+#define mat4_add(a, b) ((mat4){                                               \
   (a).m11 + (b).m11, (a).m12 + (b).m12, (a).m13 + (b).m13, (a).m14 + (b).m14, \
   (a).m21 + (b).m21, (b).m22 + (b).m22, (a).m23 + (b).m23, (a).m24 + (b).m24, \
   (a).m31 + (b).m31, (b).m32 + (b).m32, (a).m33 + (b).m33, (a).m34 + (b).m34, \
@@ -255,7 +255,7 @@ struct mat4 {
  * Subtract mat4 b from mat4 a.
  */
 
-#define mat4_subtract(a, b) ((mat4) {                                         \
+#define mat4_subtract(a, b) ((mat4){                                          \
   (a).m11 - (b).m11, (a).m12 - (b).m12, (a).m13 - (b).m13, (a).m14 - (b).m14, \
   (a).m21 - (b).m21, (b).m22 - (b).m22, (a).m23 - (b).m23, (a).m24 - (b).m24, \
   (a).m31 - (b).m31, (b).m32 - (b).m32, (a).m33 - (b).m33, (a).m34 - (b).m34, \
@@ -266,7 +266,7 @@ struct mat4 {
  * Multiply mat4 a and mat4 b.
  */
 
-#define mat4_multiply(a, b) ((mat4) {                                                \
+#define mat4_multiply(a, b) ((mat4){                                                 \
   ((a).m11 * (b).m11 + (a).m21 * (b).m12 + (a).m31 * (b).m13 + (a).m41 * (b).m14),   \
   ((a).m12 * (b).m11 + (a).m22 * (b).m12 + (a).m32 * (b).m13 + (a).m42 * (b).m14),   \
   ((a).m13 * (b).m11 + (a).m23 * (b).m12 + (a).m33 * (b).m13 + (a).m43 * (b).m14),   \
@@ -292,7 +292,7 @@ struct mat4 {
  * Rotates mat4 a by angle rad.
  */
 
-#define mat4_rotate(a, rad, vec) (mat4) ({        \
+#define mat4_rotate(a, rad, vec)  ({              \
   float x = (vec).x, y = (vec).y, z = (vec).z;    \
   float d = sqrt(x*x + y*y + z*z);                \
   float c = cosf(rad), s = sinf(rad), t = 1 - c;  \
@@ -326,7 +326,7 @@ struct mat4 {
  * Scales mat4 a by vec3 b.
  */
 
-#define mat4_scale(a, b) ((mat4) {                                             \
+#define mat4_scale(a, b) ((mat4){                                              \
   ((a).m11 * (b).x), ((a).m12 * (b).x), ((a).m13 * (b).x), ((a).m14 * (b).x),  \
   ((a).m21 * (b).y), ((a).m22 * (b).y), ((a).m23 * (b).y), ((a).m24 * (b).y),  \
   ((a).m31 * (b).z), ((a).m32 * (b).z), ((a).m33 * (b).z), ((a).m34 * (b).z),  \
@@ -337,7 +337,7 @@ struct mat4 {
  * Translate mat4 a by vec3 b.
  */
 
-#define mat4_translate(a, b) ((mat4) {                               \
+#define mat4_translate(a, b) ((mat4){                                \
   (a).m11, (a).m12, (a).m13, (a).m14,                                \
   (a).m21, (a).m22, (a).m23, (a).m24,                                \
   (a).m31, (a).m32, (a).m33, (a).m34,                                \
@@ -352,7 +352,7 @@ struct mat4 {
  * near, and far bounds.
  */
 
-#define mat4_frustum(top, left, bottom, right, near, far) (mat4) ({  \
+#define mat4_frustum(top, left, bottom, right, near, far)  ({        \
   float rl = 1 / (right - left);                                     \
   float tb = 1 / (top - bottom);                                     \
   float nf = 1 / (near - far);                                       \
@@ -386,7 +386,7 @@ struct mat4 {
  * far bounds.
  */
 
-#define mat4_perspective(fov, aspect, near, far) (mat4) ({           \
+#define mat4_perspective(fov, aspect, near, far)  ({                 \
   float f = 1.0 / tanf(fov / 2);                                     \
   int nf = 1 / (near - far);                                         \
   mat4 a;                                                            \
@@ -419,7 +419,7 @@ struct mat4 {
  * near, and far bounds.
  */
 
-#define mat4_ortho(top, left, bottom, right, near, far) (mat4) ({    \
+#define mat4_ortho(top, left, bottom, right, near, far)  ({          \
   float lr = 1 / (left - right);                                     \
   float bt = 1 / (bottom - top);                                     \
   float nf = 1 / (near - far);                                       \
@@ -452,7 +452,7 @@ struct mat4 {
  * Generates a lookAt matrix from an eye, focal, and up vec3.
  */
 
-#define mat4_lookAt(eye, center, up) (mat4) ({                       \
+#define mat4_lookAt(eye, center, up)  ({                             \
   float x0, x1, x2, y0, y1, y2, z0, z1, z2, len;                     \
   float eyex = (eye).x;                                              \
   float eyey = (eye).y;                                              \

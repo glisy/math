@@ -20,7 +20,7 @@ struct vec4 { float x; float y; float z; float w; };
  * vec4 initializer.
  */
 
-#define vec4(...) (vec4) { __VA_ARGS__ }
+#define vec4(...)  ((vec4){ __VA_ARGS__ })
 #define vec4_create() vec4(0, 0, 0, 0)
 
 /**
@@ -63,7 +63,7 @@ struct vec4 { float x; float y; float z; float w; };
  * Copy vec4 b into vec4 a
  */
 
-#define vec4_copy(a, b) (vec4) ({ \
+#define vec4_copy(a, b)  ({       \
   vec4 *tmp = (vec4 *) &(a);      \
   (tmp->x = b.x);                 \
   (tmp->y = b.y);                 \
@@ -76,7 +76,7 @@ struct vec4 { float x; float y; float z; float w; };
  * Sets x and y component of vec4.
  */
 
-#define vec4_set(v, a, b, c, d) (vec4) ({ \
+#define vec4_set(v, a, b, c, d)  ({       \
   vec4 *tmp = &(v);                       \
   tmp->x = ((float) a);                   \
   tmp->y = ((float) b);                   \
@@ -161,7 +161,7 @@ struct vec4 { float x; float y; float z; float w; };
  * Returns the negation of a vec4.
  */
 
-#define vec4_negate(a) ((vec4) vec4_scale((a), -1)
+#define vec4_negate(a) ( vec4_scale((a), -1)
 
 /**
  * Calculates the inverse of a vec4.
@@ -176,7 +176,7 @@ struct vec4 { float x; float y; float z; float w; };
  * Returns a normalized vec4.
  */
 
-#define vec4_normalize(a) (vec4) ({    \
+#define vec4_normalize(a)  ({          \
   float len = ((a).x * (a).x) +        \
               ((a).y * (a).y) +        \
               ((a).z * (a).z) +        \

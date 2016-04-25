@@ -9,7 +9,7 @@ extern "C" {
 #endif
 
 #define VAR_PTR_ACCESS(m, x) (*((float *) (&(m) + (x)))
-#define VAR_PTR_SET(m, x, v) ({   \
+#define VAR_PTR_SET(m, x, v) ({         \
   float *ptr = ((float *) (&(m) + (x)); \
   *ptr = v;                             \
 })
@@ -25,31 +25,31 @@ struct quat { float x; float y; float z; float w; };
  * quat initializers.
  */
 
-#define quat(...) (quat) { __VA_ARGS__ }
+#define quat(...)  { __VA_ARGS__ }
 #define quat_create() quat(0, 0, 0, 1)
-#define quat_identity(q) (quat) quat_set(q, 0, 0, 0, 1)
+#define quat_identity(q) quat_set(q, 0, 0, 0, 1)
 
 /**
  * Inherit vec4 routines.
  */
 
-#define quat_length_squared(...) (quat) vec4_length_squared(__VA_ARGS__)
-#define quat_normalize(...) (quat) vec4_normalize(__VA_ARGS__)
-#define quat_length(...) (quat) vec4_length(__VA_ARGS__)
-#define quat_clone(...) (quat) vec4_clone(__VA_ARGS__)
-#define quat_scale(...) (quat) vec4_scale(__VA_ARGS__)
-#define quat_copy(...) (quat) vec4_copy(__VA_ARGS__)
-#define quat_lerp(...) (quat) vec4_lerp(__VA_ARGS__)
-#define quat_set(...) (quat) vec4_set(__VA_ARGS__)
-#define quat_add(...) (quat) vec4_add(__VA_ARGS__)
-#define quat_dot(...) (quat) vec4_dot(__VA_ARGS__)
+#define quat_length_squared(...) vec4_length_squared(__VA_ARGS__)
+#define quat_normalize(...) vec4_normalize(__VA_ARGS__)
+#define quat_length(...) vec4_length(__VA_ARGS__)
+#define quat_clone(...) vec4_clone(__VA_ARGS__)
+#define quat_scale(...) vec4_scale(__VA_ARGS__)
+#define quat_copy(...) vec4_copy(__VA_ARGS__)
+#define quat_lerp(...) vec4_lerp(__VA_ARGS__)
+#define quat_set(...) vec4_set(__VA_ARGS__)
+#define quat_add(...) vec4_add(__VA_ARGS__)
+#define quat_dot(...) vec4_dot(__VA_ARGS__)
 
 /**
  * Sets the specified quaternion with values corresponding to the given
  * axes with the view, right, and up vec3 vectors.
  */
 
-#define quat_set_axes(q, view, right, up) (quat) ({ \
+#define quat_set_axes(q, view, right, up)  ({       \
   mat3 a = mat3(0);                                 \
   a.m11 = (right).x;                                \
   a.m21 = (right).y;                                \
@@ -68,7 +68,7 @@ struct quat { float x; float y; float z; float w; };
  * then returns it.
  */
 
-#define quat_set_axis_angle(q, axis, rad) (quat) ({ \
+#define quat_set_axis_angle(q, axis, rad)  ({       \
   float r = rad * 0.5;                              \
   float s = sinf(r);                                \
   float c = cosf(r);                                \
@@ -144,7 +144,7 @@ struct quat { float x; float y; float z; float w; };
  * in length. Any existing W component will be ignored.
  */
 
-#define quat_calculateW(a) (quat) ({               \
+#define quat_calculateW(a)  ({                     \
   float x = (a).x, y = (a).y, z = (a).z;           \
   (a).w = sqrt(abs(1.0 - x * x - y * y - z * z));  \
 })
@@ -153,7 +153,7 @@ struct quat { float x; float y; float z; float w; };
  * Performs a linear interpolation between two quat.
  */
 
-#define quat_slerp(q, a, b, t) (quat) ({                \
+#define quat_slerp(q, a, b, t)  ({                      \
   float ax = (a).x, ay = (a).y, az = (a).z, aw = (a).w; \
   float bx = (b).x, by = (b).y, bz = (b).z, bw = (b).w; \
   float omega, sinom, scale0, scale1;                   \
@@ -185,7 +185,7 @@ struct quat { float x; float y; float z; float w; };
  * Inverts a quat
  */
 
-#define quat_invert(a) (quat) ({                        \
+#define quat_invert(a)  ({                              \
   float a0 = (a).x, a1 = (a).y, a2 = (a).z, a3 = (a).w; \
   float dot = a0*a0 + a1*a1 + a2*a2 + a3*a3;            \
   float inverse = 0 != dot ? (1.0 / dot) : 0;           \
@@ -202,13 +202,13 @@ struct quat { float x; float y; float z; float w; };
  * Calcluates the conjugate.
  */
 
-#define quat_conjugate(a) (quat) ({ -(a).x, -(a).y, -(a).z, +(a).w, })
+#define quat_conjugate(a)  ({ -(a).x, -(a).y, -(a).z, +(a).w, })
 
 /**
  * Creates quat from mat3
  */
 
-#define quat_from_mat3(m) (quat) ({                   \
+#define quat_from_mat3(m)  ({                         \
   quat q = quat(0);                                   \
   mat3 *ptr = (mat3 *) &(m);                          \
   float trace = (m).m11 + (m).m22 + (m).m33;          \

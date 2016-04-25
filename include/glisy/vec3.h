@@ -20,7 +20,7 @@ struct vec3 { float x; float y; float z; };
  * vec3 initializer.
  */
 
-#define vec3(...) (vec3) { __VA_ARGS__ }
+#define vec3(...)  ((vec3){ __VA_ARGS__ })
 #define vec3_create() vec3(0, 0, 0)
 
 /**
@@ -60,7 +60,7 @@ struct vec3 { float x; float y; float z; };
  * Copy vec3 b into vec3 a
  */
 
-#define vec3_copy(a, b) (vec3) ({ \
+#define vec3_copy(a, b)  ({       \
   vec3 *tmp = (vec3 *) &(a);      \
   (tmp->x = b.x);                 \
   (tmp->y = b.y);                 \
@@ -72,7 +72,7 @@ struct vec3 { float x; float y; float z; };
  * Sets x and y component of vec3.
  */
 
-#define vec3_set(v, a, b, c) (vec3) ({ \
+#define vec3_set(v, a, b, c)  ({       \
   vec3 *tmp = (vec3 *) &(v);           \
   tmp->x = ((float) a);                \
   tmp->y = ((float) b);                \
@@ -148,7 +148,7 @@ struct vec3 { float x; float y; float z; };
  * Returns the negation of a vec3.
  */
 
-#define vec3_negate(a) ((vec3) vec3_scale((a), -1))
+#define vec3_negate(a) ( vec3_scale((a), -1))
 
 /**
  * Calculates the inverse of a vec3.
@@ -162,7 +162,7 @@ struct vec3 { float x; float y; float z; };
  * Returns a normalized vec3.
  */
 
-#define vec3_normalize(a) (vec3) ({                                \
+#define vec3_normalize(a)  ({                                      \
   float len = ((a).x * (a).x) + ((a).y * (a).y) + ((a).z * (a).z); \
   vec3 vec = {0, 0, 0};                                            \
   if (len > 0) {                                                   \
@@ -204,7 +204,7 @@ struct vec3 { float x; float y; float z; };
  * Generates a random vec3 with scale.
  */
 
-#define vec3_random(scale) (vec3) ({             \
+#define vec3_random(scale)  ({                   \
   srand((unsigned int) time(NULL));              \
   float rad = 2.0 * M_PI * rand();               \
   float z = (rand() * 2.0) - 1.0;                \
@@ -232,7 +232,7 @@ struct vec3 { float x; float y; float z; };
 
 #define vec3_transform_mat3(vec, mat) ({     \
   vec3 out;                                  \
-  vec3 v = (vec3) (vec);                     \
+  vec3 v = *(vec3* ) &(vec);                 \
   mat3 a = (mat3) (mat);                     \
   float x = v.x, y = v.y, z = v.z;           \
   out.x = x * a.m11 + y * a.m21 + z * a.m31; \
@@ -249,7 +249,7 @@ struct vec3 { float x; float y; float z; };
 /**
  */
 
-#define vec3_transform_mat4(vec, mat) (vec3) ({                        \
+#define vec3_transform_mat4(vec, mat)  ({                              \
   vec3 out;                                                            \
   float x = (vec).x, y = (vec).y, z = (vec).z;                         \
   float w = (mat).m14 * x + (mat).m24 * y + (mat).m34 * z + (mat).m44; \

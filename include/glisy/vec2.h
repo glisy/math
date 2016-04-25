@@ -23,7 +23,7 @@ struct vec2 { float x; float y; };
  * vec2 initializer.
  */
 
-#define vec2(...) ((vec2) { __VA_ARGS__ })
+#define vec2(...) ((vec2){ __VA_ARGS__ })
 #define vec2_create() vec2(0, 0)
 
 /**
@@ -137,13 +137,13 @@ struct vec2 { float x; float y; };
  * Calculates the inverse of a vec2.
  */
 
-#define vec2_inverse(a) ((vec2) {(1.0f/(a).x), (1.0f/(a).y)})
+#define vec2_inverse(a) ( {(1.0f/(a).x), (1.0f/(a).y)})
 
 /**
  * Returns a normalized vec2.
  */
 
-#define vec2_normalize(a) (vec2) ({              \
+#define vec2_normalize(a)  ({                    \
   float len = ((a).x * (a).x) + ((a).y * (a).y); \
   vec2 vec = vec2(0, 0);                         \
   if (len > 0) {                                 \
@@ -182,7 +182,7 @@ struct vec2 { float x; float y; };
  * Generates a random vec2 with scale.
  */
 
-#define vec2_random(scale) (vec2) ({             \
+#define vec2_random(scale)  ({                   \
   srand((unsigned int) time(NULL));              \
   float rad = 2.0 * M_PI * rand();               \
   (vec2(cosf(rad) * scale, sinf(rad) * scale));  \
@@ -192,7 +192,7 @@ struct vec2 { float x; float y; };
  * Transform vec2 with mat2.
  */
 
-#define vec2_transform_mat2(a, m) (vec2) ({      \
+#define vec2_transform_mat2(a, m)  ({      \
   float x = (m).m11 * (a).x + (m).m21 * (a).y;   \
   float y = (m).m12 * (a).x + (m).m22 * (a).y;   \
   (vec2(x, y));                                  \
@@ -202,7 +202,7 @@ struct vec2 { float x; float y; };
  * Transform vec2 with mat3.
  */
 
-#define vec2_transform_mat3(a, m) (vec2) ({      \
+#define vec2_transform_mat3(a, m)  ({            \
   float x = m.m11 * a.x + m.m21 * a.y + m.m31;   \
   float y = m.m12 * a.x + m.m22 * a.y + m.m32;   \
   (vec2(x, y));                                  \
@@ -212,7 +212,7 @@ struct vec2 { float x; float y; };
  * Transform vec2 with mat4.
  */
 
-#define vec2_transform_mat4(a, m) (vec2) ({                \
+#define vec2_transform_mat4(a, m)  ({                      \
   float x = (m).m11 * (a).x + (m).m21 * (a).y + (m).m31;   \
   float y = (m).m12 * (a).x + (m).m22 * (a).y + (m).m32;   \
   (vec2(x, y));                                            \
