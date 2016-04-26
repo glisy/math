@@ -323,6 +323,84 @@ struct mat4 {
 })
 
 /**
+ * Rotates a matrix by the given angle around the X axis
+ */
+
+#define mat4_rotateX(a, rad) ({ \
+  float s = sinf(rad);          \
+  float c = cosf(rad);          \
+  float a10 = (a).m21;          \
+  float a11 = (a).m22;          \
+  float a12 = (a).m23;          \
+  float a13 = (a).m24;          \
+  float a20 = (a).m31;          \
+  float a21 = (a).m32;          \
+  float a22 = (a).m33;          \
+  float a23 = (a).m34;          \
+  (a).m21 = a10 * c + a20 * s;  \
+  (a).m22 = a11 * c + a21 * s;  \
+  (a).m23 = a12 * c + a22 * s;  \
+  (a).m24 = a13 * c + a23 * s;  \
+  (a).m31 = a20 * c - a10 * s;  \
+  (a).m32 = a21 * c - a11 * s;  \
+  (a).m33 = a22 * c - a12 * s;  \
+  (a).m34 = a23 * c - a13 * s;  \
+  (a);                          \
+})
+
+/**
+ * Rotates a matrix by the given angle around the Y axis
+ */
+
+#define mat4_rotateY(a, rad) ({ \
+  float s = sinf(rad);          \
+  float c = cosf(rad);          \
+  float a00 = (a).m11;          \
+  float a01 = (a).m12;          \
+  float a02 = (a).m13;          \
+  float a03 = (a).m14;          \
+  float a20 = (a).m31;          \
+  float a21 = (a).m32;          \
+  float a22 = (a).m33;          \
+  float a23 = (a).m34;          \
+  (a).m11 = a00 * c - a20 * s;  \
+  (a).m12 = a01 * c - a21 * s;  \
+  (a).m13 = a02 * c - a22 * s;  \
+  (a).m14 = a03 * c - a23 * s;  \
+  (a).m31 = a00 * s + a20 * c;  \
+  (a).m32 = a01 * s + a21 * c;  \
+  (a).m33 = a02 * s + a22 * c;  \
+  (a).m34 = a03 * s + a23 * c;  \
+  (a);                          \
+})
+
+/**
+ * Rotates a matrix by the given angle around the Z axis
+ */
+
+#define mat4_rotateZ(a, rad) ({ \
+  float s = sinf(rad);          \
+  float c = cosf(rad);          \
+  float a00 = (a).m11;          \
+  float a01 = (a).m12;          \
+  float a02 = (a).m13;          \
+  float a03 = (a).m14;          \
+  float a10 = (a).m21;          \
+  float a11 = (a).m22;          \
+  float a12 = (a).m23;          \
+  float a13 = (a).m24;          \
+  (a).m11 = a00 * c + a10 * s;  \
+  (a).m12 = a01 * c + a11 * s;  \
+  (a).m13 = a02 * c + a12 * s;  \
+  (a).m14 = a03 * c + a13 * s;  \
+  (a).m21 = a10 * c - a00 * s;  \
+  (a).m22 = a11 * c - a01 * s;  \
+  (a).m23 = a12 * c - a02 * s;  \
+  (a).m24 = a13 * c - a03 * s;  \
+  (a);                          \
+})
+
+/**
  * Scales mat4 a by vec3 b.
  */
 
