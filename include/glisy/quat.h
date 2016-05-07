@@ -25,7 +25,7 @@ struct quat { float x; float y; float z; float w; };
  * quat initializers.
  */
 
-#define quat(...)  { __VA_ARGS__ }
+#define quat(...) ((quat) { __VA_ARGS__ })
 #define quat_create() quat(0, 0, 0, 1)
 #define quat_identity(q) quat_set(q, 0, 0, 0, 1)
 
@@ -40,9 +40,20 @@ struct quat { float x; float y; float z; float w; };
 #define quat_scale(...) vec4_scale(__VA_ARGS__)
 #define quat_copy(...) vec4_copy(__VA_ARGS__)
 #define quat_lerp(...) vec4_lerp(__VA_ARGS__)
-#define quat_set(...) vec4_set(__VA_ARGS__)
 #define quat_add(...) vec4_add(__VA_ARGS__)
 #define quat_dot(...) vec4_dot(__VA_ARGS__)
+
+/**
+ * Setd quat components
+ */
+
+#define quat_set(q, a, b, c, d) ({ \
+  (q).x = (a);                     \
+  (q).y = (b);                     \
+  (q).z = (c);                     \
+  (q).w = (d);                     \
+  (q);                             \
+})
 
 /**
  * Sets the specified quaternion with values corresponding to the given
