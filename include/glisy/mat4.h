@@ -81,25 +81,25 @@ struct mat4 {
 #define mat4_invert(a)  ({                                           \
   mat4 b = mat4(0);                                                  \
                                                                      \
-  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
-  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
-  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
-  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
+  double a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  double a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  double a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  double a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
-  float b00 = a00 * a11 - a01 * a10;                                 \
-  float b01 = a00 * a12 - a02 * a10;                                 \
-  float b02 = a00 * a13 - a03 * a10;                                 \
-  float b03 = a01 * a12 - a02 * a11;                                 \
-  float b04 = a01 * a13 - a03 * a11;                                 \
-  float b05 = a02 * a13 - a03 * a12;                                 \
-  float b06 = a20 * a31 - a21 * a30;                                 \
-  float b07 = a20 * a32 - a22 * a30;                                 \
-  float b08 = a20 * a33 - a23 * a30;                                 \
-  float b09 = a21 * a32 - a22 * a31;                                 \
-  float b10 = a21 * a33 - a23 * a31;                                 \
-  float b11 = a22 * a33 - a23 * a32;                                 \
+  double b00 = a00 * a11 - a01 * a10;                                 \
+  double b01 = a00 * a12 - a02 * a10;                                 \
+  double b02 = a00 * a13 - a03 * a10;                                 \
+  double b03 = a01 * a12 - a02 * a11;                                 \
+  double b04 = a01 * a13 - a03 * a11;                                 \
+  double b05 = a02 * a13 - a03 * a12;                                 \
+  double b06 = a20 * a31 - a21 * a30;                                 \
+  double b07 = a20 * a32 - a22 * a30;                                 \
+  double b08 = a20 * a33 - a23 * a30;                                 \
+  double b09 = a21 * a32 - a22 * a31;                                 \
+  double b10 = a21 * a33 - a23 * a31;                                 \
+  double b11 = a22 * a33 - a23 * a32;                                 \
                                                                      \
-  float det = b00 * b11 - b01 * b10                                  \
+  double det = b00 * b11 - b01 * b10                                  \
             + b02 * b09 + b03 * b08                                  \
             - b04 * b07 + b05 * b06;                                 \
                                                                      \
@@ -136,10 +136,10 @@ struct mat4 {
 #define mat4_adjoint(a)  ({                                          \
   mat4 b = mat4(0);                                                  \
                                                                      \
-  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
-  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
-  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
-  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
+  double a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  double a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  double a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  double a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
   b.m11 =   (a11 * (a22 * a33 - a23 * a32)                           \
            - a21 * (a12 * a33 - a13 * a32)                           \
@@ -212,26 +212,26 @@ struct mat4 {
  * Calculates determinant of mat4 a.
  */
 
-#define mat4_determinant(a) (float) ({                               \
-  float a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
-  float a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
-  float a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
-  float a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
+#define mat4_determinant(a) (double) ({                               \
+  double a00 = (a).m11, a01 = (a).m12, a02 = (a).m13, a03 = (a).m14;  \
+  double a10 = (a).m21, a11 = (a).m22, a12 = (a).m23, a13 = (a).m24;  \
+  double a20 = (a).m31, a21 = (a).m32, a22 = (a).m33, a23 = (a).m34;  \
+  double a30 = (a).m41, a31 = (a).m42, a32 = (a).m43, a33 = (a).m44;  \
                                                                      \
-  float b00 = a00 * a11 - a01 * a10;                                 \
-  float b01 = a00 * a12 - a02 * a10;                                 \
-  float b02 = a00 * a13 - a03 * a10;                                 \
-  float b03 = a01 * a12 - a02 * a11;                                 \
-  float b04 = a01 * a13 - a03 * a11;                                 \
-  float b05 = a02 * a13 - a03 * a12;                                 \
-  float b06 = a20 * a31 - a21 * a30;                                 \
-  float b07 = a20 * a32 - a22 * a30;                                 \
-  float b08 = a20 * a33 - a23 * a30;                                 \
-  float b09 = a21 * a32 - a22 * a31;                                 \
-  float b10 = a21 * a33 - a23 * a31;                                 \
-  float b11 = a22 * a33 - a23 * a32;                                 \
+  double b00 = a00 * a11 - a01 * a10;                                 \
+  double b01 = a00 * a12 - a02 * a10;                                 \
+  double b02 = a00 * a13 - a03 * a10;                                 \
+  double b03 = a01 * a12 - a02 * a11;                                 \
+  double b04 = a01 * a13 - a03 * a11;                                 \
+  double b05 = a02 * a13 - a03 * a12;                                 \
+  double b06 = a20 * a31 - a21 * a30;                                 \
+  double b07 = a20 * a32 - a22 * a30;                                 \
+  double b08 = a20 * a33 - a23 * a30;                                 \
+  double b09 = a21 * a32 - a22 * a31;                                 \
+  double b10 = a21 * a33 - a23 * a31;                                 \
+  double b11 = a22 * a33 - a23 * a32;                                 \
                                                                      \
-  float det = b00 * b11                                              \
+  double det = b00 * b11                                              \
             - b01 * b10                                              \
             + b02 * b09                                              \
             + b03 * b08                                              \
@@ -293,9 +293,9 @@ struct mat4 {
  */
 
 #define mat4_rotate(a, rad, vec)  ({              \
-  float x = (vec).x, y = (vec).y, z = (vec).z;    \
-  float d = sqrt(x*x + y*y + z*z);                \
-  float c = cosf(rad), s = sinf(rad), t = 1 - c;  \
+  double x = (vec).x, y = (vec).y, z = (vec).z;    \
+  double d = sqrt(x*x + y*y + z*z);                \
+  double c = cosf(rad), s = sinf(rad), t = 1 - c;  \
                                                   \
   x /= d; y /= d; z /= d;                         \
                                                   \
@@ -327,16 +327,16 @@ struct mat4 {
  */
 
 #define mat4_rotateX(a, rad) ({ \
-  float s = sinf(rad);          \
-  float c = cosf(rad);          \
-  float a10 = (a).m21;          \
-  float a11 = (a).m22;          \
-  float a12 = (a).m23;          \
-  float a13 = (a).m24;          \
-  float a20 = (a).m31;          \
-  float a21 = (a).m32;          \
-  float a22 = (a).m33;          \
-  float a23 = (a).m34;          \
+  double s = sinl(rad);          \
+  double c = cosl(rad);          \
+  double a10 = (a).m21;          \
+  double a11 = (a).m22;          \
+  double a12 = (a).m23;          \
+  double a13 = (a).m24;          \
+  double a20 = (a).m31;          \
+  double a21 = (a).m32;          \
+  double a22 = (a).m33;          \
+  double a23 = (a).m34;          \
   (a).m21 = a10 * c + a20 * s;  \
   (a).m22 = a11 * c + a21 * s;  \
   (a).m23 = a12 * c + a22 * s;  \
@@ -353,16 +353,16 @@ struct mat4 {
  */
 
 #define mat4_rotateY(a, rad) ({ \
-  float s = sinf(rad);          \
-  float c = cosf(rad);          \
-  float a00 = (a).m11;          \
-  float a01 = (a).m12;          \
-  float a02 = (a).m13;          \
-  float a03 = (a).m14;          \
-  float a20 = (a).m31;          \
-  float a21 = (a).m32;          \
-  float a22 = (a).m33;          \
-  float a23 = (a).m34;          \
+  double s = sinl(rad);          \
+  double c = cosl(rad);          \
+  double a00 = (a).m11;          \
+  double a01 = (a).m12;          \
+  double a02 = (a).m13;          \
+  double a03 = (a).m14;          \
+  double a20 = (a).m31;          \
+  double a21 = (a).m32;          \
+  double a22 = (a).m33;          \
+  double a23 = (a).m34;          \
   (a).m11 = a00 * c - a20 * s;  \
   (a).m12 = a01 * c - a21 * s;  \
   (a).m13 = a02 * c - a22 * s;  \
@@ -379,16 +379,16 @@ struct mat4 {
  */
 
 #define mat4_rotateZ(a, rad) ({ \
-  float s = sinf(rad);          \
-  float c = cosf(rad);          \
-  float a00 = (a).m11;          \
-  float a01 = (a).m12;          \
-  float a02 = (a).m13;          \
-  float a03 = (a).m14;          \
-  float a10 = (a).m21;          \
-  float a11 = (a).m22;          \
-  float a12 = (a).m23;          \
-  float a13 = (a).m24;          \
+  double s = sinl(rad);          \
+  double c = cosl(rad);          \
+  double a00 = (a).m11;          \
+  double a01 = (a).m12;          \
+  double a02 = (a).m13;          \
+  double a03 = (a).m14;          \
+  double a10 = (a).m21;          \
+  double a11 = (a).m22;          \
+  double a12 = (a).m23;          \
+  double a13 = (a).m24;          \
   (a).m11 = a00 * c + a10 * s;  \
   (a).m12 = a01 * c + a11 * s;  \
   (a).m13 = a02 * c + a12 * s;  \
@@ -431,9 +431,9 @@ struct mat4 {
  */
 
 #define mat4_frustum(top, left, bottom, right, near, far)  ({        \
-  float rl = 1 / (right - left);                                     \
-  float tb = 1 / (top - bottom);                                     \
-  float nf = 1 / (near - far);                                       \
+  double rl = 1 / (right - left);                                     \
+  double tb = 1 / (top - bottom);                                     \
+  double nf = 1 / (near - far);                                       \
   mat4 a;                                                            \
                                                                      \
   a.m11 = rl * (2 * near);                                           \
@@ -465,7 +465,7 @@ struct mat4 {
  */
 
 #define mat4_perspective(fov, aspect, near, far)  ({                 \
-  float f = 1.0 / tanf(fov / 2);                                     \
+  double f = 1.0 / tanf(fov / 2);                                     \
   int nf = 1 / (near - far);                                         \
   mat4 a;                                                            \
                                                                      \
@@ -498,9 +498,9 @@ struct mat4 {
  */
 
 #define mat4_ortho(top, left, bottom, right, near, far)  ({          \
-  float lr = 1 / (left - right);                                     \
-  float bt = 1 / (bottom - top);                                     \
-  float nf = 1 / (near - far);                                       \
+  double lr = 1 / (left - right);                                     \
+  double bt = 1 / (bottom - top);                                     \
+  double nf = 1 / (near - far);                                       \
   mat4 a;                                                            \
                                                                      \
   a.m11 = -2 * lr;                                                   \
@@ -531,16 +531,16 @@ struct mat4 {
  */
 
 #define mat4_lookAt(eye, center, up)  ({                             \
-  float x0, x1, x2, y0, y1, y2, z0, z1, z2, len;                     \
-  float eyex = (eye).x;                                              \
-  float eyey = (eye).y;                                              \
-  float eyez = (eye).z;                                              \
-  float upx = (up).x;                                                \
-  float upy = (up).y;                                                \
-  float upz = (up).z;                                                \
-  float centerx = (center).x;                                        \
-  float centery = (center).y;                                        \
-  float centerz = (center).z;                                        \
+  double x0, x1, x2, y0, y1, y2, z0, z1, z2, len;                     \
+  double eyex = (eye).x;                                              \
+  double eyey = (eye).y;                                              \
+  double eyez = (eye).z;                                              \
+  double upx = (up).x;                                                \
+  double upy = (up).y;                                                \
+  double upz = (up).z;                                                \
+  double centerx = (center).x;                                        \
+  double centery = (center).y;                                        \
+  double centerz = (center).z;                                        \
   mat4 a = mat4_create();                                            \
   if (!(fabs(eyex - centerx) < GLISY_EPSILON &&                      \
       fabs(eyey - centery) < GLISY_EPSILON &&                        \
@@ -604,7 +604,7 @@ struct mat4 {
  * Calculates Frobenius norm mat4 a.
  */
 
-#define mat4_frob(a) (float) sqrt( \
+#define mat4_frob(a) (double) sqrt( \
   powf((a).m11, 2.0) +             \
   powf((a).m12, 2.0) +             \
   powf((a).m13, 2.0) +             \
@@ -629,22 +629,22 @@ struct mat4 {
 
 #define mat4_from_quat(q) ({ \
   mat4 mat = mat4(0);        \
-  float x = (q).x;           \
-  float y = (q).y;           \
-  float z = (q).z;           \
-  float w = (q).w;           \
-  float x2 = x + x;          \
-  float y2 = y + y;          \
-  float z2 = z + z;          \
-  float xx = x * x2;         \
-  float yx = y * x2;         \
-  float yy = y * y2;         \
-  float zx = z * x2;         \
-  float zy = z * y2;         \
-  float zz = z * z2;         \
-  float wx = w * x2;         \
-  float wy = w * y2;         \
-  float wz = w * z2;         \
+  double x = (q).x;           \
+  double y = (q).y;           \
+  double z = (q).z;           \
+  double w = (q).w;           \
+  double x2 = x + x;          \
+  double y2 = y + y;          \
+  double z2 = z + z;          \
+  double xx = x * x2;         \
+  double yx = y * x2;         \
+  double yy = y * y2;         \
+  double zx = z * x2;         \
+  double zy = z * y2;         \
+  double zz = z * z2;         \
+  double wx = w * x2;         \
+  double wy = w * y2;         \
+  double wz = w * z2;         \
                              \
   mat.m11 = 1 - yy - zz;     \
   mat.m12 = yx + wz;         \
@@ -677,10 +677,10 @@ struct mat4 {
   char str[BUFSIZ];                                                  \
   mat4 b = mat4_clone((a));                                          \
   memset(str, 0, BUFSIZ);                                            \
-  sprintf(str, "mat4(%f, %f, %f, %f,\n"                              \
-               "     %f, %f, %f, %f,\n"                              \
-               "     %f, %f, %f, %f,\n"                              \
-               "     %f, %f, %f, %f)",                               \
+  sprintf(str, "mat4(%g, %g, %g, %g,\n"                              \
+               "     %g, %g, %g, %g,\n"                              \
+               "     %g, %g, %g, %g,\n"                              \
+               "     %g, %g, %g, %g)",                               \
                b.m11, b.m12, b.m13, b.m14,                           \
                b.m21, b.m22, b.m23, b.m24,                           \
                b.m31, b.m32, b.m33, b.m34,                           \

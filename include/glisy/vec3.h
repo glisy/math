@@ -251,8 +251,8 @@ struct vec3 { float x; float y; float z; };
 
 #define vec3_transform_mat4(vec, mat)  ({                              \
   vec3 out;                                                            \
-  float x = (vec).x, y = (vec).y, z = (vec).z;                         \
-  float w = (mat).m14 * x + (mat).m24 * y + (mat).m34 * z + (mat).m44; \
+  double x = (vec).x, y = (vec).y, z = (vec).z;                         \
+  double w = (mat).m14 * x + (mat).m24 * y + (mat).m34 * z + (mat).m44; \
   w = w ? w : 1.0;                                                     \
   out.x = (mat.m11 * x + mat.m21 * y + mat.m31 * z + mat.m41) / w;     \
   out.y = (mat.m12 * x + mat.m22 * y + mat.m32 * z + mat.m42) / w;     \
