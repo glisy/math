@@ -497,25 +497,25 @@ struct mat4 {
  * near, and far bounds.
  */
 
-#define mat4_ortho(top, left, bottom, right, near, far)  ({          \
-  double lr = 1 / (left - right);                                     \
-  double bt = 1 / (bottom - top);                                     \
-  double nf = 1 / (near - far);                                       \
+#define mat4_ortho(left, right, bottom, top, near, far)  ({          \
+  double lr = 1.0 / (left - right);                                  \
+  double bt = 1.0 / (bottom - top);                                  \
+  double nf = 1.0 / (near - far);                                    \
   mat4 a;                                                            \
                                                                      \
-  a.m11 = -2 * lr;                                                   \
+  a.m11 = -2.0 * lr;                                                 \
   a.m12 = 0;                                                         \
   a.m13 = 0;                                                         \
   a.m14 = 0;                                                         \
                                                                      \
   a.m21 = 0;                                                         \
-  a.m22 = -2 * bt;                                                   \
+  a.m22 = -2.0 * bt;                                                 \
   a.m23 = 0;                                                         \
   a.m24 = 0;                                                         \
                                                                      \
   a.m31 = 0;                                                         \
   a.m32 = 0;                                                         \
-  a.m33 = 2 * nf;                                                    \
+  a.m33 = 2.0 * nf;                                                  \
   a.m34 = 0;                                                         \
                                                                      \
   a.m41 = lr * (left + right);                                       \
@@ -531,16 +531,16 @@ struct mat4 {
  */
 
 #define mat4_lookAt(eye, center, up)  ({                             \
-  double x0, x1, x2, y0, y1, y2, z0, z1, z2, len;                     \
-  double eyex = (eye).x;                                              \
-  double eyey = (eye).y;                                              \
-  double eyez = (eye).z;                                              \
-  double upx = (up).x;                                                \
-  double upy = (up).y;                                                \
-  double upz = (up).z;                                                \
-  double centerx = (center).x;                                        \
-  double centery = (center).y;                                        \
-  double centerz = (center).z;                                        \
+  double x0, x1, x2, y0, y1, y2, z0, z1, z2, len;                    \
+  double eyex = (eye).x;                                             \
+  double eyey = (eye).y;                                             \
+  double eyez = (eye).z;                                             \
+  double upx = (up).x;                                               \
+  double upy = (up).y;                                               \
+  double upz = (up).z;                                               \
+  double centerx = (center).x;                                       \
+  double centery = (center).y;                                       \
+  double centerz = (center).z;                                       \
   mat4 a = mat4_create();                                            \
   if (!(fabs(eyex - centerx) < GLISY_EPSILON &&                      \
       fabs(eyey - centery) < GLISY_EPSILON &&                        \
@@ -605,22 +605,22 @@ struct mat4 {
  */
 
 #define mat4_frob(a) (double) sqrt( \
-  powf((a).m11, 2.0) +             \
-  powf((a).m12, 2.0) +             \
-  powf((a).m13, 2.0) +             \
-  powf((a).m14, 2.0) +             \
-  powf((a).m21, 2.0) +             \
-  powf((a).m22, 2.0) +             \
-  powf((a).m23, 2.0) +             \
-  powf((a).m24, 2.0) +             \
-  powf((a).m31, 2.0) +             \
-  powf((a).m32, 2.0) +             \
-  powf((a).m33, 2.0) +             \
-  powf((a).m34, 2.0) +             \
-  powf((a).m41, 2.0) +             \
-  powf((a).m42, 2.0) +             \
-  powf((a).m43, 2.0) +             \
-  powf((a).m44, 2.0)               \
+  powf((a).m11, 2.0) +              \
+  powf((a).m12, 2.0) +              \
+  powf((a).m13, 2.0) +              \
+  powf((a).m14, 2.0) +              \
+  powf((a).m21, 2.0) +              \
+  powf((a).m22, 2.0) +              \
+  powf((a).m23, 2.0) +              \
+  powf((a).m24, 2.0) +              \
+  powf((a).m31, 2.0) +              \
+  powf((a).m32, 2.0) +              \
+  powf((a).m33, 2.0) +              \
+  powf((a).m34, 2.0) +              \
+  powf((a).m41, 2.0) +              \
+  powf((a).m42, 2.0) +              \
+  powf((a).m43, 2.0) +              \
+  powf((a).m44, 2.0)                \
 )
 
 /**
@@ -629,22 +629,22 @@ struct mat4 {
 
 #define mat4_from_quat(q) ({ \
   mat4 mat = mat4(0);        \
-  double x = (q).x;           \
-  double y = (q).y;           \
-  double z = (q).z;           \
-  double w = (q).w;           \
-  double x2 = x + x;          \
-  double y2 = y + y;          \
-  double z2 = z + z;          \
-  double xx = x * x2;         \
-  double yx = y * x2;         \
-  double yy = y * y2;         \
-  double zx = z * x2;         \
-  double zy = z * y2;         \
-  double zz = z * z2;         \
-  double wx = w * x2;         \
-  double wy = w * y2;         \
-  double wz = w * z2;         \
+  double x = (q).x;          \
+  double y = (q).y;          \
+  double z = (q).z;          \
+  double w = (q).w;          \
+  double x2 = x + x;         \
+  double y2 = y + y;         \
+  double z2 = z + z;         \
+  double xx = x * x2;        \
+  double yx = y * x2;        \
+  double yy = y * y2;        \
+  double zx = z * x2;        \
+  double zy = z * y2;        \
+  double zz = z * z2;        \
+  double wx = w * x2;        \
+  double wy = w * y2;        \
+  double wz = w * z2;        \
                              \
   mat.m11 = 1 - yy - zz;     \
   mat.m12 = yx + wz;         \
