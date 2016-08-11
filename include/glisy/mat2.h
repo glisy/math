@@ -147,9 +147,9 @@ struct mat2 {
  * Scale mat2 a by vec2 b.
  */
 
-#define mat2_scale(a, b) ( {     \
-  (a.m11 * b.x), (a.m12 * b.x),  \
-  (a.m21 * b.y), (a.m22 * b.y)   \
+#define mat2_scale(a, b) ((mat2) {  \
+  (a.m11 * b.x), (a.m12 * b.x),     \
+  (a.m21 * b.y), (a.m22 * b.y)      \
 })
 
 /**

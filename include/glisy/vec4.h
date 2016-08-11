@@ -210,6 +210,18 @@ struct vec4 { float x; float y; float z; float w; };
                                     (a).y + t * ((b).y - (a).y), \
                                     (a).z + t * ((b).z - (a).z), \
                                     (a).w + t * ((b).w - (a).w)})
+
+/**
+ * Calculates a transformed vec4 a with a mat4 b.
+ */
+
+#define vec4_transform_mat4(a, b) ((vec4) {                              \
+  (b).m11 * (a).x + (b).m21 * (a).y + (b).m31 * (a).z + (b).m41 * (a).w, \
+  (b).m12 * (a).x + (b).m22 * (a).y + (b).m32 * (a).z + (b).m42 * (a).w, \
+  (b).m13 * (a).x + (b).m23 * (a).y + (b).m33 * (a).z + (b).m43 * (a).w, \
+  (b).m14 * (a).x + (b).m24 * (a).y + (b).m34 * (a).z + (b).m44 * (a).w, \
+})
+
 /**
  * Returns a string representation of vec4 a.
  */
