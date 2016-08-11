@@ -230,7 +230,6 @@ struct vec4 { float x; float y; float z; float w; };
   vec4 c;                                               \
   float x = (a).x, y = (a).y, z = (a).z, w = (a).w;     \
   float qx = (b).x, qy = (b).y, qz = (b).z, qw = (b).w; \
-                                                        \
   float ix = qw * x + qy * z - qz * y;                  \
   float iy = qw * y + qz * x - qx * z;                  \
   float iz = qw * z + qx * y - qy * x;                  \
