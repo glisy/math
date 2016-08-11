@@ -223,6 +223,27 @@ struct vec4 { float x; float y; float z; float w; };
 })
 
 /**
+ * Calculates a transformed vec4 a with a quat b.
+ */
+
+#define vec4_transform_quat(a, b) ((vec4) {             \
+  vec4 c;                                               \
+	float x = (a).x, y = (z).y, z = (a).z, w = (a).w;     \
+  float qx = (q).x, qy = (q).y, qz = (q).z, qw = (q).w; \
+                                                        \
+  float ix = qw * x + qy * z - qz * y;                  \
+  float iy = qw * y + qz * x - qx * z;                  \
+  float iz = qw * z + qx * y - qy * x;                  \
+  float iw = -qx * x - qy * y - qz * z;                 \
+                                                        \
+  (c).x = ix * qw + iw * -qx + iy * -qz - iz * -qy;     \
+  (c).y = iy * qw + iw * -qy + iz * -qx - ix * -qz;     \
+  (c).z = iz * qw + iw * -qz + ix * -qy - iy * -qx;     \
+  (c).w = w;                                            \
+	(c);                                                  \
+})
+
+/**
  * Returns a string representation of vec4 a.
  */
 
